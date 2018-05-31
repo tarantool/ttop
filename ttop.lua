@@ -1,9 +1,10 @@
 #!/usr/bin/env tarantool
 
-local term = require('term')
-local sys = require('sys')
-
 local ffi = require('ffi')
+local net_box = require('net.box')
+local json = require('json')
+
+
 
 local function maketermfunc(sequence_fmt)
   sequence_fmt = '\027[' .. sequence_fmt
@@ -72,10 +73,22 @@ local function isatty(descriptor)
 end
 
 
-if not term.isatty(io.stdout) then
-    sys.exit("stdout is not a tty")
+if not isatty(io.stdout) then
+    os.exit("stdout is not a tty")
 end
 
 local function draw_progressbar(x, y, length, value, text)
 
 end
+
+
+local function main()
+    local url = 'localhost:3301'
+
+    if arg[1] ~= nil then
+        url = arg[1]
+    end
+end
+
+
+main()
